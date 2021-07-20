@@ -2,6 +2,7 @@
 <html lang="en">
 
 <script>
+//This function generates the computer's turn choice
 function computerPlay() {
     let randomNumber = Math.floor(Math.random() * 3) + 1;
     if(randomNumber === 1) {
@@ -13,6 +14,8 @@ function computerPlay() {
     }
 }
 
+
+//This function takes the player and computer's input and calcualtes the winner
 function playRound(playerSelection, computerSelection) {
     if(playerSelection.toUpperCase() == 'ROCK') {
         if(computerSelection.toUpperCase() == 'SCISSORS') {
@@ -38,6 +41,7 @@ function playRound(playerSelection, computerSelection) {
     return 'No winner! Both chose ' + computerSelection;
 }
 
+//This function initiates the game, then repeatedly takes user and computer input to arrive at the winner
 function game() {
     let playerScore = 0;
     let computerScore = 0;
