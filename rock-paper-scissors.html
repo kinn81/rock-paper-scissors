@@ -2,89 +2,89 @@
 <html lang="en">
 
 <script>
-//This function generates the computer's turn choice
-function computerPlay() {
-    let randomNumber = Math.floor(Math.random() * 3) + 1;
-    if(randomNumber === 1) {
-        return 'Rock';
-    } else if(randomNumber === 2) {
-        return 'Paper';
-    } else if(randomNumber === 3){
-        return 'Scissors';
-    }
-}
-
-
-//This function takes the player and computer's input and calcualtes the winner
-function playRound(playerSelection, computerSelection) {
-    if(playerSelection.toUpperCase() == 'ROCK') {
-        if(computerSelection.toUpperCase() == 'SCISSORS') {
-            return 'You Win! Rock beats Scissors';
-        } else if(computerSelection.toUpperCase() == 'PAPER') {
-            return 'You Lose! Paper beats Rock';
+    //This function generates the computer's turn choice
+    function computerPlay() {
+        let randomNumber = Math.floor(Math.random() * 3) + 1;
+        if (randomNumber === 1) {
+            return 'Rock';
+        } else if (randomNumber === 2) {
+            return 'Paper';
+        } else if (randomNumber === 3) {
+            return 'Scissors';
         }
     }
-    if(playerSelection.toUpperCase() == 'PAPER') {
-        if(computerSelection.toUpperCase() == 'ROCK') {
-            return 'You Win! Paper beats Rock';
-        } else if(computerSelection.toUpperCase() == 'SCISSORS') {
-            return 'You Lose! Scissors beats Paper';
+
+    //This function takes the player and computer's input and calcualtes the winner
+    function playRound(playerSelection, computerSelection) {
+        if (playerSelection.toUpperCase() == 'ROCK') {
+            if (computerSelection.toUpperCase() == 'SCISSORS') {
+                return 'You Win! Rock beats Scissors';
+            } else if (computerSelection.toUpperCase() == 'PAPER') {
+                return 'You Lose! Paper beats Rock';
+            }
         }
+        if (playerSelection.toUpperCase() == 'PAPER') {
+            if (computerSelection.toUpperCase() == 'ROCK') {
+                return 'You Win! Paper beats Rock';
+            } else if (computerSelection.toUpperCase() == 'SCISSORS') {
+                return 'You Lose! Scissors beats Paper';
+            }
+        }
+        if (playerSelection.toUpperCase() == 'SCISSORS') {
+            if (computerSelection.toUpperCase() == 'PAPER') {
+                return 'You Win! Scissors beats Paper';
+            } else if (computerSelection.toUpperCase() == 'ROCK') {
+                return 'You Lose! Rock beats Scissors';
+            }
+        }
+        return 'No winner! Both chose ' + computerSelection;
     }
-    if(playerSelection.toUpperCase() == 'SCISSORS') {
-        if(computerSelection.toUpperCase() == 'PAPER') {
-            return 'You Win! Scissors beats Paper';
-        } else if(computerSelection.toUpperCase() == 'ROCK') {
-            return 'You Lose! Rock beats Scissors';
+
+    //This function initiates the game, then repeatedly takes user and computer input to arrive at the winner
+    function game() {
+        let playerScore = 0;
+        let computerScore = 0;
+        let result;
+        let computerResult;
+
+        for (let i = 1; i <= 5; i++) {
+            console.log();
+            console.log('Playerscore: ' + playerScore);
+            console.log('Computerscore: ' + computerScore);
+
+            if (playerScore === 3 || computerScore === 3) {
+                console.log('Someone won. Breaking loop');
+                break;
+            }
+            result = window.prompt('Choose rock, paper, or scissors');
+            computerResult = computerPlay();
+            console.log('player Result: ' + result);
+            console.log('computer reslut: ' + computerResult);
+
+            if (playRound(result, computerResult).includes('You Win')) {
+                playerScore++;
+                console.log('You win this round');
+            } else if (playRound(result, computerResult).includes('You Lose')) {
+                computerScore++;
+                console.log('You lose this round');
+            } else {
+                console.log('That round was a draw');
+            }
         }
+        console.log()
+        console.log()
+
+        //Report on the winner
+        let winner = "Final score you: " + playerScore + ', computer: ' + computerScore + '. '
+
+        winner = + (playerScore > computerScore) ? 'You Win!' :
+            (computerScore > playerScore) ? 'You Lose!' :
+                'Its a Draw!';
+
+        console.log(winner);
     }
-    return 'No winner! Both chose ' + computerSelection;
-}
 
-//This function initiates the game, then repeatedly takes user and computer input to arrive at the winner
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let result;
-    let computerResult;
-
-    for(let i = 1; i <= 5; i++)  {
-        console.log();
-        console.log('Playerscore: ' + playerScore);
-        console.log('Computerscore: ' + computerScore);
-
-        if(playerScore === 3 || computerScore === 3) {
-            console.log('Someone won. Breaking loop');
-            break;
-        }
-        result = window.prompt('Choose rock, paper, or scissors');
-        computerResult = computerPlay();
-        console.log('player Result: ' + result);
-        console.log('computer reslut: ' + computerResult);
-
-        if(playRound(result, computerResult).includes('You Win')) {
-            playerScore++;
-            console.log('You win this round');
-        } else if(playRound(result, computerResult).includes('You Lose')) {
-            computerScore++;
-            console.log('You lose this round');
-        } else {
-            console.log('That round was a draw');
-        }
-    }
-    console.log()
-    console.log()
-
-    let winner = "Final score you: " + playerScore + ', computer: ' + computerScore + '. '
-    
-    winner =+ (playerScore > computerScore) ? 'You Win!' :
-    (computerScore > playerScore) ? 'You Lose!' :
-    'Its a Draw!';
-    
-    console.log(winner);
-}
-
-game();
+    game();
 
 </script>
 
@@ -95,7 +95,9 @@ game();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>
