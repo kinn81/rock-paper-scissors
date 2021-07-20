@@ -44,7 +44,7 @@
     function game() {
         let playerScore = 0;
         let computerScore = 0;
-        let result;
+        let playerResult;
         let computerResult;
 
         for (let i = 1; i <= 5; i++) {
@@ -56,15 +56,15 @@
                 console.log('Someone won. Breaking loop');
                 break;
             }
-            result = window.prompt('Choose rock, paper, or scissors');
+            playerResult = window.prompt('Choose rock, paper, or scissors');
             computerResult = computerPlay();
-            console.log('player Result: ' + result);
+            console.log('player Result: ' + playerResult);
             console.log('computer reslut: ' + computerResult);
 
-            if (playRound(result, computerResult).includes('You Win')) {
+            if (playRound(playerResult, computerResult).includes('You Win')) {
                 playerScore++;
                 console.log('You win this round');
-            } else if (playRound(result, computerResult).includes('You Lose')) {
+            } else if (playRound(playerResult, computerResult).includes('You Lose')) {
                 computerScore++;
                 console.log('You lose this round');
             } else {
@@ -76,7 +76,6 @@
 
         //Report on the winner
         let winner = "Final score you: " + playerScore + ', computer: ' + computerScore + '. '
-
         winner = + (playerScore > computerScore) ? 'You Win!' :
             (computerScore > playerScore) ? 'You Lose!' :
                 'Its a Draw!';
