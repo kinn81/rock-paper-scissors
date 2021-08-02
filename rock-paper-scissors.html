@@ -1,8 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    body {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        flex-direction: column;
+    }
+
+    .console {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        flex-direction: column;
+        background-color: lightgray;
+        margin-bottom: 10px;
+        height: auto;
+        min-height: 100px;
+        min-width: 400px;
+    }
+
+    p {
+        margin: 10 0 0 0;
+    }
+
+    #title {
+        padding: 0 0 5 0;
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button {
+        margin: 0px 5px 0px 5px;
+    }
+</style>
+
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rock, Paper, Scissors</title>
+</head>
+
+<body>
+    <div class="console">
+        <p id="title">To start the game make a selection</p>
+        <p data-key="score">Player score: 0 | Computer score: 0</p>
+        <p data-key="output"></p>
+    </div>
+    <div class="buttons">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+    </div>
+</body>
 
 <script>
-    //This function generates the computer's turn choice
+
+    //This function randomly returns either rock, paper, or scissors to simulate the computer's choice
     function computerPlay() {
         let randomNumber = Math.floor(Math.random() * 3) + 1;
         if (randomNumber === 1) {
@@ -14,7 +72,7 @@
         }
     }
 
-    //This function takes the player and computer's input and calcualtes the winner
+    //This function takes the player and computer's input and calcualtes the winner for the round
     function playRound(playerSelection, computerSelection) {
         if (playerSelection.toUpperCase() == 'ROCK') {
             if (computerSelection.toUpperCase() == 'SCISSORS') {
@@ -40,63 +98,51 @@
         return 'No winner! Both chose ' + computerSelection;
     }
 
-    //This function initiates the game, then repeatedly takes user and computer input to arrive at the winner
-    function game() {
-        let playerScore = 0;
-        let computerScore = 0;
-        let playerResult;
-        let computerResult;
+    //This function adds the button listeners and plays the round
+    function addButtonListeners() {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+            // and for each one we add a 'click' listener
 
-        for (let i = 1; i <= 5; i++) {
-            console.log();
-            console.log('Playerscore: ' + playerScore);
-            console.log('Computerscore: ' + computerScore);
-
-            if (playerScore === 3 || computerScore === 3) {
-                console.log('Someone won. Breaking loop');
-                break;
-            }
-            playerResult = window.prompt('Choose rock, paper, or scissors');
-            computerResult = computerPlay();
-            console.log('player Result: ' + playerResult);
-            console.log('computer reslut: ' + computerResult);
-
-            if (playRound(playerResult, computerResult).includes('You Win')) {
-                playerScore++;
-                console.log('You win this round');
-            } else if (playRound(playerResult, computerResult).includes('You Lose')) {
-                computerScore++;
-                console.log('You lose this round');
-            } else {
-                console.log('That round was a draw');
-            }
-        }
-        console.log()
-        console.log()
-
-        //Report on the winner
-        let winner = "Final score you: " + playerScore + ', computer: ' + computerScore + '. '
-        winner = + (playerScore > computerScore) ? 'You Win!' :
-            (computerScore > playerScore) ? 'You Lose!' :
-                'Its a Draw!';
-
-        console.log(winner);
+            button.addEventListener('click', () => {
+                let result = playRound(button.textContent, computerPlay());
+                if (result.includes('You Win')) {
+                    playerScore++;
+                    console.log('You win this round');
+                } else if (result.includes('You Lose')) {
+                    computerScore++;
+                    console.log('You lose this round');
+                } else {
+                    console.log('That round was a draw');
+                }
+                output.textContent = result;
+                score.textContent = `Player score: ${playerScore} | Computer score: ${computerScore}`
+                //Check playerscore and report winner
+                if (playerScore === 3 || computerScore === 3) {
+                    console.log("---------------")
+                    let winner;
+                    winner = winner + (playerScore > computerScore) ? 'You Win!' :
+                        (computerScore > playerScore) ? 'You Lose!' :
+                            'Its a Draw!';
+                    console.log('Game Over. ' + winner);
+                    output.textContent = 'Game Over. ' + winner;
+                    playerScore = 0;
+                    computerScore = 0;
+                    console.log("---------------")
+                }
+            });
+        });
     }
+    let playerScore = 0;
+    let computerScore = 0;
+    let playerResult;
+    let computerResult;
+    const score = document.querySelector('p[data-key="score"]');
+    const output = document.querySelector('p[data-key="output"]');
 
-    game();
+    addButtonListeners();
 
+    //game();
 </script>
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="#">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-</body>
 
 </html>
